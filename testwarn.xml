@@ -3,7 +3,32 @@
     <ModulePrefs title="TestWarn" />
     <Content type="html">
         <![CDATA[
-            Hello, world!
+            <!DOCTYPE html>
+            <html>
+                <body>
+                    <script>
+                        function getPreferencesCallback(response) {
+                            if('viewer' in response) {
+                                return response.viewer;
+                            }
+                        }
+
+                        function getEventCallback(response) { 
+                            if('error' in response[0])
+                                return;
+
+                            var events = response[0]['events'];
+                            alert(events);
+                        }  
+
+                        var start = {year: 2009, month: 12, date : 24, hour : 0, minute:0, second: 0};
+                        var end = {year: 2010, month: 1, date : 1, hour : 0, minute: 0, second: 0};
+                        var viewer = google.calendar.getPreferences(getPreferencesCallback)
+                        var events = google.calendar.read.getEvents(callback, viewer, start, end); 
+                        alert(events);
+                    </script>
+                </body>
+            </html>
         ]]>
     </Content>
 </Module>
